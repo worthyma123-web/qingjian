@@ -5,7 +5,6 @@
   <title>我们结婚啦 | 婚礼邀请函</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta property="og:title" content="我们结婚啦 | 诚挚邀请见证">
-  <meta property="og:description" content="良辰已定，吉日待访，诚邀见证我们的幸福时刻💒">
   <style>
     * {
       margin: 0;
@@ -178,23 +177,23 @@
       <div class="countdown">
         <div class="time-box"><span class="num" id="day">00</span><span class="label">天</span></div>
         <div class="time-box"><span class="num" id="hour">00</span><span class="label">时</span></div>
-        <div class="time-box"><span class="num" id="min">00</span><span class="label">分</span></div>
+        <div class="time-box"><span class="min">00</span><span class="label">分</span></div>
         <div class="time-box"><span class="num" id="sec">00</span><span class="label">秒</span></div>
       </div>
     </div>
 
-  <div class="img-box">
-    <img src="resized-photo1.jpg">
-    <img src="resized-photo2.jpg">
-    <img src="resized-photo3.jpg">
-    <img src="resized-photo4.jpg">
-    <img src="resized-photo5.jpg">
-    <img src="resized-photo6.jpg">
-    <img src="resized-photo7.jpg">
-    <img src="resized-photo8.jpg">
-    <img src="resized-photo9.jpg">
-    <img src="resized-photo10.jpg">
-  </div>
+    <div class="photos">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
+      <img src="photo5.jpg">
+      <img src="photo6.jpg">
+      <img src="photo7.jpg">
+      <img src="photo8.jpg">
+      <img src="photo9.jpg">
+      <img src="photo10.jpg">
+    </div>
 
     <div class="info-group">
       <div class="date" id="weddingDateText">📅 </div>
@@ -210,7 +209,7 @@
 
   <audio id="music" loop autoplay>
     <source src="wedding.mp3" type="audio/mpeg">
-  </audio>
+  
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -223,7 +222,7 @@
       document.addEventListener('touchstart', playMusic);
     });
 
-    // 倒计时设置为：当前时间 + 1分钟
+    // 1分钟后触发烟花
     const now = new Date();
     const weddingDate = new Date(now.getTime() + 60 * 1000).getTime();
 
@@ -254,8 +253,9 @@
     setInterval(countdown, 1000);
     countdown();
 
+    // 高德地图导航
     function goMap() {
-      window.open("https://maps.google.com?q=洛阳市好合喜宴");
+      window.open("https://amap.com/search?keywords=洛阳市好合喜宴");
     }
 
     function copyLink() {
