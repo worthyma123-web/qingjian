@@ -104,7 +104,6 @@
       font-size: 16px;
       cursor: pointer;
     }
-    /* 音乐按钮 */
     .music-btn {
       position: fixed;
       right: 20px;
@@ -164,22 +163,24 @@
     </div>
   </div>
 
-  <!-- 音乐按钮 -->
   <div class="music-btn" id="musicBtn">🔊</div>
   <audio id="bgMusic" src="music.mp3" loop>
 
   <script>
-    // 背景音乐自动播放 + 点击静音
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
     let isPlay = true;
+    let hasPlayed = false;
 
-    // 自动播放
-    window.addEventListener('load', () => {
-      bgMusic.play().catch(err => {});
+    // 点屏幕就播放（100%生效）
+    document.addEventListener('click', () => {
+      if (!hasPlayed) {
+        bgMusic.play();
+        hasPlayed = true;
+      }
     });
 
-    // 点击切换
+    // 按钮控制
     musicBtn.onclick = () => {
       if (isPlay) {
         bgMusic.pause();
@@ -191,10 +192,9 @@
       isPlay = !isPlay;
     };
 
-    // 倒计时 2026-05-02
+    // 倒计时
     const target = new Date('2026-05-02 00:00:00');
     let fired = false;
-
     function countdown() {
       const now = new Date();
       const diff = target - now;
