@@ -96,7 +96,6 @@
       margin-bottom: 20px;
     }
     .map-btn {
-      display: inline-block;
       padding: 12px 30px;
       background: #fff;
       color: #c72c56;
@@ -104,6 +103,24 @@
       border-radius: 30px;
       font-size: 16px;
       cursor: pointer;
+    }
+    /* 音乐按钮 */
+    .music-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 44px;
+      height: 44px;
+      background: #c72c56;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 9999;
     }
   </style>
 </head>
@@ -147,18 +164,40 @@
     </div>
   </div>
 
-  <!-- 背景音乐 -->
-  <audio src="music.mp3" autoplay loop controls>
+  <!-- 音乐按钮 -->
+  <div class="music-btn" id="musicBtn">🔊</div>
+  <audio id="bgMusic" src="music.mp3" loop>
 
   <script>
-    // 倒计时到 2026-05-02
+    // 背景音乐自动播放 + 点击静音
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlay = true;
+
+    // 自动播放
+    window.addEventListener('load', () => {
+      bgMusic.play().catch(err => {});
+    });
+
+    // 点击切换
+    musicBtn.onclick = () => {
+      if (isPlay) {
+        bgMusic.pause();
+        musicBtn.textContent = '🔇';
+      } else {
+        bgMusic.play();
+        musicBtn.textContent = '🔊';
+      }
+      isPlay = !isPlay;
+    };
+
+    // 倒计时 2026-05-02
     const target = new Date('2026-05-02 00:00:00');
     let fired = false;
 
     function countdown() {
       const now = new Date();
       const diff = target - now;
-
       let d = 0, h = 0, m = 0, s = 0;
       if (diff > 0) {
         d = Math.floor(diff / 86400000);
@@ -172,7 +211,6 @@
           showFireworks();
         }
       }
-
       document.getElementById("day").innerText = String(d).padStart(2, '0');
       document.getElementById("hour").innerText = String(h).padStart(2, '0');
       document.getElementById("min").innerText = String(m).padStart(2, '0');
@@ -193,7 +231,6 @@
       canvas.style.display = "block";
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-
       const particles = [];
       class Heart {
         constructor(x, y) {
@@ -217,12 +254,10 @@
           this.x += this.sx; this.y += this.sy; this.sy += 0.1; this.alpha -= 0.01;
         }
       }
-
-      function burst(x,y) {
+      function burst(x,y){
         for(let i=0;i<40;i++) particles.push(new Heart(x,y));
       }
-
-      function anim() {
+      function anim(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         if(Math.random()>0.92) burst(Math.random()*canvas.width, Math.random()*canvas.height*0.7);
         for(let i=particles.length-1;i>=0;i--){
