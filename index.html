@@ -1,79 +1,238 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>我们结婚啦</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
-body{background:#fdf6f6;padding:0 0 40px;}
-.wrap{max-width:500px;margin:0 auto;background:#fff;padding:40px 20px;}
-.title{text-align:center;font-size:32px;color:#d81b60;margin:20px 0;}
-.name{text-align:center;font-size:24px;color:#9c5454;margin-bottom:30px;}
-.photo img{width:100%;border-radius:12px;margin-bottom:12px;box-shadow:0 2px 8px #0001;}
-.count{display:flex;justify-content:center;gap:12px;margin:40px 0;}
-.time{width:60px;height:60px;background:#d81b60;color:white;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;}
-.time .num{font-size:20px;font-weight:bold;}
-.info{text-align:center;margin:30px 0;line-height:1.8;font-size:16px;color:#555;}
-</style>
+  <meta charset="UTF-8">
+  <title>我们结婚啦 | 婚礼邀请函</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #fdf5f5;
+      color: #333;
+      padding-bottom: 60px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .ring {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    .title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #c72c56;
+      margin-bottom: 16px;
+    }
+    .names {
+      font-size: 24px;
+      color: #8c6239;
+      margin-bottom: 20px;
+    }
+    .text {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .photos {
+      margin: 30px 0;
+    }
+    .photos img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .time-box {
+      width: 60px;
+      height: 60px;
+      background: #c72c56;
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .time-box .num {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .time-box .label {
+      font-size: 12px;
+    }
+    .info-group {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .date {
+      font-size: 18px;
+      color: #c72c56;
+      margin-bottom: 12px;
+    }
+    .address {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .map-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: #fff;
+      color: #c72c56;
+      border: 2px solid #c72c56;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-<div class="wrap">
-  <div class="title">💍 我们结婚啦</div>
-  <div class="name">麻意浩 & 张小艺</div>
+  <canvas id="fireworks" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;display:none;"></canvas>
 
-  <!-- 照片：你直接在 GitHub 传 photo1~10.jpg 就能显示 -->
-  <div class="photo">
-    <img src="photo1.jpg">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-    <img src="photo4.jpg">
-    <img src="photo5.jpg">
-    <img src="photo6.jpg">
-    <img src="photo7.jpg">
-    <img src="photo8.jpg">
-    <img src="photo9.jpg">
-    <img src="photo10.jpg">
+  <div class="container">
+    <div class="header">
+      <div class="ring">💍</div>
+      <div class="title">我们结婚啦</div>
+      <div class="names">麻意浩 & 张小艺</div>
+      <div class="text">以爱之名，以余生为期</div>
+      <div class="text">诚邀您见证我们的幸福时刻</div>
+    </div>
+
+    <div class="photos">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+      <img src="photo4.jpg">
+      <img src="photo5.jpg">
+      <img src="photo6.jpg">
+      <img src="photo7.jpg">
+      <img src="photo8.jpg">
+      <img src="photo9.jpg">
+      <img src="photo10.jpg">
+    </div>
+
+    <div class="countdown">
+      <div class="time-box"><span class="num" id="day">00</span><span class="label">天</span></div>
+      <div class="time-box"><span class="num" id="hour">00</span><span class="label">时</span></div>
+      <div class="time-box"><span class="num" id="min">00</span><span class="label">分</span></div>
+      <div class="time-box"><span class="num" id="sec">00</span><span class="label">秒</span></div>
+    </div>
+
+    <div class="info-group">
+      <div class="date">2026年05月02日</div>
+      <div class="address">📍 洛阳市 · 好合喜宴</div>
+      <button class="map-btn" onclick="goMap()">一键导航到酒店</button>
+    </div>
   </div>
 
-  <div class="count">
-    <div class="time"><span class="num" id="d">00</span><span>天</span></div>
-    <div class="time"><span class="num" id="h">00</span><span>时</span></div>
-    <div class="time"><span class="num" id="m">00</span><span>分</span></div>
-    <div class="time"><span class="num" id="s">00</span><span>秒</span></div>
-  </div>
+  <!-- 背景音乐 -->
+  <audio src="music.mp3" autoplay loop controls>
 
-  <div class="info">
-    婚礼时间：2026年05月02日<br>
-    地点：洛阳市 · 好合喜宴
-  </div>
-</div>
+  <script>
+    // 倒计时到 2026-05-02
+    const target = new Date('2026-05-02 00:00:00');
+    let fired = false;
 
-<script>
-// 固定倒计时：2026年5月2日 00:00
-function count() {
-  var end = new Date('2026-05-02 00:00:00');
-  var now = new Date();
-  var diff = end - now;
+    function countdown() {
+      const now = new Date();
+      const diff = target - now;
 
-  var d = Math.floor(diff / 86400000);
-  var h = Math.floor((diff % 86400000) / 3600000);
-  var m = Math.floor((diff % 3600000) / 60000);
-  var s = Math.floor((diff % 60000) / 1000);
+      let d = 0, h = 0, m = 0, s = 0;
+      if (diff > 0) {
+        d = Math.floor(diff / 86400000);
+        h = Math.floor((diff % 86400000) / 3600000);
+        m = Math.floor((diff % 3600000) / 60000);
+        s = Math.floor((diff % 60000) / 1000);
+      } else {
+        d = h = m = s = 0;
+        if (!fired) {
+          fired = true;
+          showFireworks();
+        }
+      }
 
-  d = d < 0 ? 0 : d;
-  h = h < 0 ? 0 : h;
-  m = m < 0 ? 0 : m;
-  s = s < 0 ? 0 : s;
+      document.getElementById("day").innerText = String(d).padStart(2, '0');
+      document.getElementById("hour").innerText = String(h).padStart(2, '0');
+      document.getElementById("min").innerText = String(m).padStart(2, '0');
+      document.getElementById("sec").innerText = String(s).padStart(2, '0');
+    }
+    setInterval(countdown, 1000);
+    countdown();
 
-  document.getElementById('d').innerText = String(d).padStart(2, '0');
-  document.getElementById('h').innerText = String(h).padStart(2, '0');
-  document.getElementById('m').innerText = String(m).padStart(2, '0');
-  document.getElementById('s').innerText = String(s).padStart(2, '0');
-}
-setInterval(count, 1000);
-count();
-</script>
+    // 高德导航
+    function goMap() {
+      window.open("https://amap.com/search?keywords=洛阳市好合喜宴");
+    }
+
+    // 爱心烟花
+    function showFireworks() {
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+      canvas.style.display = "block";
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      class Heart {
+        constructor(x, y) {
+          this.x = x; this.y = y;
+          this.size = Math.random() * 8 + 5;
+          this.sx = Math.random() * 4 - 2;
+          this.sy = Math.random() * -5 - 2;
+          this.alpha = 1;
+          this.color = ['#ff9aab','#ff77a9','#f8b500','#ffda44','#ffc2d1'][Math.random()*5|0];
+        }
+        draw() {
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          let t = this.size/2;
+          ctx.bezierCurveTo(this.x-t,this.y-t,this.x-t*2,this.y+t/3,this.x,this.y+t*1.5);
+          ctx.bezierCurveTo(this.x+t*2,this.y+t/3,this.x+t,this.y-t,this.x,this.y);
+          ctx.fill();
+        }
+        update() {
+          this.x += this.sx; this.y += this.sy; this.sy += 0.1; this.alpha -= 0.01;
+        }
+      }
+
+      function burst(x,y) {
+        for(let i=0;i<40;i++) particles.push(new Heart(x,y));
+      }
+
+      function anim() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        if(Math.random()>0.92) burst(Math.random()*canvas.width, Math.random()*canvas.height*0.7);
+        for(let i=particles.length-1;i>=0;i--){
+          let p=particles[i]; p.update(); p.draw();
+          if(p.alpha<=0) particles.splice(i,1);
+        }
+        requestAnimationFrame(anim);
+      }
+      anim();
+    }
+  </script>
 </body>
 </html>
